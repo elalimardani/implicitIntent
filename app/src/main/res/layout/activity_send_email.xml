@@ -56,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/editBody"
+        android:text="SEND"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
