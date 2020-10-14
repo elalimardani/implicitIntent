@@ -11,21 +11,19 @@ import android.widget.EditText;
 
 public class SendEmail extends AppCompatActivity {
 
-    public EditText editTextReceiver;
-    public EditText editTextSubject;
-    public EditText editTextBody;
-    public Button sendBtn;
+    private EditText editTextReceiver, editTextSubject, editTextBody;
+    private Button sendBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_email);
 
-        editTextReceiver.findViewById(R.id.editReceiver);
-        editTextSubject.findViewById(R.id.editSubject);
-        editTextBody.findViewById(R.id.editBody);
+        editTextReceiver = (EditText)findViewById(R.id.editReceiver);
+        editTextSubject = (EditText) findViewById(R.id.editSubject);
+        editTextBody = (EditText)findViewById(R.id.editBody);
 
-        sendBtn = findViewById(R.id.sendBtn);
+        sendBtn = (Button)findViewById(R.id.sendBtn);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

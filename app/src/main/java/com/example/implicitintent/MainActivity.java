@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    public Button sendEmailBtn;
+    private Button sendEmailBtn;
     //Button moreInfoBtn;
 
     @Override
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        sendEmailBtn.findViewById(R.id.shareViaEmailBtn);
+        sendEmailBtn = (Button)findViewById(R.id.shareViaEmailBtn);
         sendEmailBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SendEmail.class);
             startActivity(intent);
