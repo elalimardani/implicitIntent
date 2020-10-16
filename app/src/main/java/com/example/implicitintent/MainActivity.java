@@ -7,16 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.math.BigDecimal;
+
 public class MainActivity extends AppCompatActivity {
     private Button sendEmailBtn;
     private Button moreInfoBtn;
-    private ImageButton imageButton;
+
     private EditText editText;
+    private Button  searchBtn;
 
 
     @Override
@@ -25,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        imageButton = (ImageButton) findViewById(R.id.imageButton);
 
+        editText = (EditText) findViewById(R.id.queryEditTextText);
+        searchBtn = (Button) findViewById(R.id.searchBtn);
 
         sendEmailBtn = (Button)findViewById(R.id.shareViaEmailBtn);
         sendEmailBtn.setOnClickListener(v -> {
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         moreInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                openBrowser(v);
 
             }
         });
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openBrowser(View view){
-        Uri thing = Uri.parse("http://www.google.com");
+        Uri thing = Uri.parse("http://www.cookingforengineers.com/");
         Intent intent = new Intent(Intent.ACTION_VIEW, thing);
         //or:
         //intent.setData(thing);
@@ -53,23 +57,40 @@ public class MainActivity extends AppCompatActivity {
        if(intent.resolveActivity(getPackageManager()) != null){
            startActivity(intent);
        }else{
-           Toast.makeText(this, "sad face", Toast.LENGTH_LONG).show();
+           Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
         }
     }
 
 
     public void openMaps(View view){
-        //Uri thing = Uri.parse("geo:40.7934, -77.8600");
-        //Uri thing = Uri.parse("geo:?q=south+hills+school+of+business");
-        Uri thing = Uri.parse("geo:?q=south+hills,State+College,PA");
+
+        //generate random location
+        //these params can be changed to limit the radius
+        double MaxLat = 90;
+        double MinLat = -90;
+        double MaxLon = 180;
+        double MinLon = -180;
+
+        BigDecimal dbLon = new BigDecimal(Math.random() * (MaxLon - MinLon) + MinLon);
+        String lonVal = dbLon.setScale(4, BigDecimal.ROUND_HALF_UP).toString();
+
+        BigDecimal dbLat = new BigDecimal(Math.random() * (MaxLat - MinLat) + MinLat);
+        String latVal = dbLat.setScale(4, BigDecimal.ROUND_HALF_UP).toString();
+
+        String stringToParse =  "geo:"+  latVal +", " + lonVal;
+        Uri location = Uri.parse(stringToParse);
+        //Uri location = Uri.parse("geo:40.7934, -77.8600");
+        //Uri location = Uri.parse("geo:?q=south+hills+school+of+business");
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         //or:
-        intent.setData(thing);
+        intent.setData(location);
+        intent.setPackage("com.google.android.apps.maps");
 
         if(intent.resolveActivity(getPackageManager()) != null){
             startActivity(intent);
         }else{
-            Toast.makeText(this, "sad face", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -103,4 +124,5 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No Googling today!", Toast.LENGTH_LONG).show();
         }
     }
+
 }
