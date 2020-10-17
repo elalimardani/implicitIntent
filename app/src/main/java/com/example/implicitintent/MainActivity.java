@@ -79,11 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         String stringToParse =  "geo:"+  latVal +", " + lonVal;
         Uri location = Uri.parse(stringToParse);
-        //Uri location = Uri.parse("geo:40.7934, -77.8600");
-        //Uri location = Uri.parse("geo:?q=south+hills+school+of+business");
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        //or:
+
         intent.setData(location);
         intent.setPackage("com.google.android.apps.maps");
 
